@@ -1,0 +1,1 @@
+export const IsValidNumber = (value: number, minRequiredNumber: number): boolean => !isNaN(value) && value >= minRequiredNumber;

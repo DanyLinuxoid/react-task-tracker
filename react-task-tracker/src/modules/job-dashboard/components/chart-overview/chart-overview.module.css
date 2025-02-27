@@ -1,0 +1,9 @@
+.badgeContainer {
+    margin-right: 1%;
+    display: flex;
+    gap: 5px;
+}
+
+.section {
+    margin-left: 1%;
+}

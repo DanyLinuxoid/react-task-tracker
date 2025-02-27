@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.35806.103
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "react-task-tracker", "react-task-tracker\react-task-tracker.esproj", "{B3CA4E28-CE35-6C66-5730-FF870C51D2D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3CA4E28-CE35-6C66-5730-FF870C51D2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3CA4E28-CE35-6C66-5730-FF870C51D2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3CA4E28-CE35-6C66-5730-FF870C51D2D7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B3CA4E28-CE35-6C66-5730-FF870C51D2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3CA4E28-CE35-6C66-5730-FF870C51D2D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3CA4E28-CE35-6C66-5730-FF870C51D2D7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F44F968-9883-4DA9-B53D-0229E63C834A}
+	EndGlobalSection
+EndGlobal

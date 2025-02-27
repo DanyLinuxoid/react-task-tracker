@@ -1,0 +1,12 @@
+.thumb {
+    transition: transform 300ms ease;
+    cursor: pointer;
+}
+
+.track {
+    transition: background-color 300ms ease;
+}
+
+.switchWrapper {
+    justify-items: center;
+}
