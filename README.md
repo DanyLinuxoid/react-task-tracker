@@ -56,8 +56,8 @@ export interface JobInfoBase {
 
 The application automatically maps the received data into three visualization sections:
 1. **Main Dashboard**: Summary of all jobs
-2. **Type-Specific Views**: Jobs grouped by ```backgroundJobType: string;``` property (HTTP, TASK, etc.)
-3. **Modular View**: Granular job visualization grouped by ```name: string;``` property
+2. **Type-Specific Views**: Jobs grouped by ```backgroundJobType: string;``` property (HTTP, TASK, etc groups)
+3. **Modular View**: Granular job visualization grouped by ```name: string;``` property (function/method names)
 
 ## 💻 Technology Stack
 
