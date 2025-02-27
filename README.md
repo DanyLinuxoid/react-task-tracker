@@ -1,4 +1,4 @@
-# Job Tracker
+# Simple Job Tracker
 
 ## Real-time Background Process Monitoring Dashboard
 
