@@ -2,8 +2,6 @@
 
 ## Real-time Background Process Monitoring Dashboard
 
-![image](https://github.com/user-attachments/assets/2b72a120-b7ed-48fa-9a53-4a4144722c65)
-![image](https://github.com/user-attachments/assets/33d59081-5d4c-4e71-98b0-f148365ff85d)
 ![charts](https://github.com/user-attachments/assets/241e9013-f5e0-4736-8bd2-3d2640e2c661)
 
 A lightweight, easy-to-integrate dashboard for real-time monitoring of background processes in your application.
