@@ -40,7 +40,7 @@ While primarily designed for job monitoring, this dashboard can also be repurpos
 
 ### Backend Integration
 
-The dashboard requires only a single API endpoint that returns job data conforming to this interface:
+The dashboard requires only a single API endpoint that returns job data array conforming to this interface:
 
 ```typescript
 export interface JobInfoBase {
