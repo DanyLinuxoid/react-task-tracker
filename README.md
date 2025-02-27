@@ -66,8 +66,9 @@ The application automatically maps the received data into three visualization se
 ## 💻 Technology Stack
 
 - **ReactJS**: Component-based UI
-- **TypeScript**: Type-safe code
-- **MantineUI**: Modern component library
+- **TypeScript/Javascript**: Type-safe code
+- **HTML+CSS**: For good looking UI
+- **MantineUI**: Modern UI component library 
 - **TradingView Lightweight Charts**: High-performance charting
 - **Vite/Babel**: Fast development and optimized builds
 
