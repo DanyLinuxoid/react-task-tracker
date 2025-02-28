@@ -4,17 +4,17 @@ import { JobInfoBase, Bundle, ChartInfoProps, ChartOverviewProps, GetComponentPr
 import { useGeneralHideShowStore, useJobsStore, useModularHideShowStore, useSummaryHideShowStore } from "../../store/store";
 import { Divider, SimpleGrid } from "@mantine/core";
 import { AnimatePresence } from "motion/react"
-import { dateTimeNowSeconds } from "../../../../shared/helpers/date-helper";
-import { getWindowSizes } from "../../../../shared/helpers/size-helper";
-import { groupBy } from "../../../../shared/helpers/sorting-helper";
-import { Presence } from "../../../../ui/mantine-ui/animation/presence";
-import { Visible } from "../../../../ui/mantine-ui/animation/visibility";
+import { dateTimeNowSeconds } from "@/shared/helpers/date-helper";
+import { getWindowSizes } from "@/shared/helpers/size-helper";
+import { groupBy } from "@/shared/helpers/sorting-helper";
+import { Presence } from "@/ui/mantine-ui/animation/presence";
+import { Visible } from "@/ui/mantine-ui/animation/visibility";
 import { ChartCard } from "../chart-card";
 import { useSettingsContext } from "../../../settings/context";
 import { GetJobsData } from "../../api";
 import { ChartsCarousel } from "../chart-carousel";
 import { toast } from "react-toastify";
-import { getNewId } from "../../../../shared/helpers/id-helper";
+import { getNewId } from "@/shared/helpers/id-helper";
 
 export const DashboardModule = () => {
     const { jobs, setJobs } = useJobsStore();
@@ -117,7 +117,7 @@ export const DashboardModule = () => {
                     });
                 }
 
-                allComponentsInfosRef.current = getComponentInfos({ // By name
+                allComponentsInfosRef.current = getComponentInfos({ // All section
                     key: null,
                     records: data,
                     settings: {
@@ -128,7 +128,7 @@ export const DashboardModule = () => {
                     }
                 }, 1)[0];
                 const uniqueTypesCount = new Set(data.map((x) => x.backgroundJobType)).size;
-                typesComponentsInfosRef.current = getComponentInfos({ // By name
+                typesComponentsInfosRef.current = getComponentInfos({ // By type
                     key: 'backgroundJobType',
                     records: data,
                     settings: {
@@ -138,7 +138,7 @@ export const DashboardModule = () => {
                         badgeSize: 'md'
                     }
                 }, 2).sort((a, b) => a.id.localeCompare(b.id));
-                const updatedComponents = getComponentInfos({ // By name
+                const updatedNameComponents = getComponentInfos({ // By name
                     key: "name",
                     records: data,
                     settings: {
@@ -150,25 +150,24 @@ export const DashboardModule = () => {
                 }, 3).sort((a, b) => a.id.localeCompare(b.id));
 
                 // Update time
-                for (var i = 0; i < updatedComponents.length; i++) {
+                for (var i = 0; i < updatedNameComponents.length; i++) {
                     const updateTime = dateTimeNowSeconds();
-                    lastTimestampUpdatedRef.current.set(updatedComponents[i].id, updateTime);
+                    lastTimestampUpdatedRef.current.set(updatedNameComponents[i].id, updateTime);
                 }
 
-                const allCurrentIds = new Set(oldComponents.map((x => x.id)));
-                const newComponents = updatedComponents.filter(x => !allCurrentIds.has(x.id)).sort((a, b) => a.id.localeCompare(b.id));
-
                 // Updating old
-                for (var i = 0; i < updatedComponents.length; i++) {
-                    if (!allCurrentIds.has(updatedComponents[i].id))
+                const allCurrentIds = new Set(oldComponents.map((x => x.id)));
+                const newComponents = updatedNameComponents.filter(x => !allCurrentIds.has(x.id)).sort((a, b) => a.id.localeCompare(b.id));
+                for (var i = 0; i < updatedNameComponents.length; i++) {
+                    if (!allCurrentIds.has(updatedNameComponents[i].id))
                         continue;
                     
-                    let existingToUpdate = oldComponents.find(x => x.id === updatedComponents[i].id);
+                    let existingToUpdate = oldComponents.find(x => x.id === updatedNameComponents[i].id);
                     if (!existingToUpdate)
                         continue;
 
-                    existingToUpdate.info = updatedComponents[i].info;
-                    existingToUpdate.overview = updatedComponents[i].overview;
+                    existingToUpdate.info = updatedNameComponents[i].info;
+                    existingToUpdate.overview = updatedNameComponents[i].overview;
                 }
                 namesComponentsInfosRef.current = [...oldComponents, ...newComponents];
             }
@@ -193,7 +192,6 @@ export const DashboardModule = () => {
             allComponentsInfosRef.current = null;
             typesComponentsInfosRef.current = [];
             namesComponentsInfosRef.current = [];
-
         }
     }, [shouldPurgeCharts]);
 

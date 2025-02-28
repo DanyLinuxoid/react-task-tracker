@@ -92,7 +92,7 @@ export const ChartInfo = (props: ChartInfoProps ) => {
         }
 
         const newPointsCount = dataPointsCount + newPointsAdded;
-        if (newPointsCount > maxAllowedDataPoints) { // If limit reached -> reset chart data
+        if (maxAllowedDataPoints && newPointsCount > maxAllowedDataPoints) { // If limit reached -> reset chart data
             seriesRef.current.setData(props.data);
             keysSetRef.current = new Set(props.data.map(point => point.time));
             setDataPointsCount(props.data.length);

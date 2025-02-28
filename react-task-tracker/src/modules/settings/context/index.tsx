@@ -5,14 +5,14 @@ export interface SettingsState {
     secondsToPurgeData: number | null;
     updatesEnabled: boolean;
     secondsDelayBetweenRequests: number | null;
-    maxAllowedDataPoints: number;
+    maxAllowedDataPoints: number | null;
     shouldPurgeCharts: boolean;
 
     setUseMock: (value: boolean) => void;
-    setSecondsToPurge: (value: number | null) => void;
+    setSecondsToPurgeData: (value: number | null) => void;
     setUpdatesEnabled: (value: boolean) => void;
     setDelayBetweenRequests: (value: number | null) => void;
-    setMaxAllowedDataPoints: (value: number) => void;
+    setMaxAllowedDataPoints: (value: number | null) => void;
     setShouldPurgeCharts: (value: boolean) => void;
 }
 
@@ -25,7 +25,7 @@ export const useSettingsContext = create<SettingsState>((set) => ({
     maxAllowedDataPoints: 10,
 
     setUseMock: (value) => set({ shouldUseMock: value }),
-    setSecondsToPurge: (value) => set({ secondsToPurgeData: value }),
+    setSecondsToPurgeData: (value) => set({ secondsToPurgeData: value }),
     setDelayBetweenRequests: (value) => set({ secondsDelayBetweenRequests: value }),
     setMaxAllowedDataPoints: (value) => set({ maxAllowedDataPoints: value }),
     setShouldPurgeCharts: (value) => set({ shouldPurgeCharts: value }),
