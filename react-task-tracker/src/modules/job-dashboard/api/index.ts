@@ -1,6 +1,6 @@
 import { generateMockJobs } from "@/shared/testing/mock";
 
-export const GetJobsData = async (startTimestamp: number, useMockData: boolean = true) => {
+export const getJobsData = async (startTimestamp: number, useMockData: boolean = true) => {
     const params = new URLSearchParams({
         lastDate: startTimestamp.toString(),
     }).toString();

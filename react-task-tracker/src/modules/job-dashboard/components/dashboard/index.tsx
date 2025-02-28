@@ -11,7 +11,7 @@ import { Presence } from "@/ui/mantine-ui/animation/presence";
 import { Visible } from "@/ui/mantine-ui/animation/visibility";
 import { ChartCard } from "../chart-card";
 import { useSettingsContext } from "../../../settings/context";
-import { GetJobsData } from "../../api";
+import { getJobsData } from "../../api";
 import { ChartsCarousel } from "../chart-carousel";
 import { toast } from "react-toastify";
 import { getNewId } from "@/shared/helpers/id-helper";
@@ -98,7 +98,7 @@ export const DashboardModule = () => {
 
             let data: JobInfoBase[] = [];
             try {
-                const response: any = await GetJobsData((jobs.length > 0 ? jobs[jobs.length - 1].startTimestamp : 0), shouldUseMock);
+                const response: any = await getJobsData((jobs.length > 0 ? jobs[jobs.length - 1].startTimestamp : 0), shouldUseMock);
                 data = shouldUseMock ? response : await response.json();
             } catch (e) {
                 toast.error((e as Error).message);
