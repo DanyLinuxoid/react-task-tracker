@@ -14,10 +14,7 @@ After evaluating existing solutions like Hangfire and Quartz for monitoring back
 
 - **Real-time Monitoring**: Track background jobs as they happen
 - **Minimal Backend Integration**: Single API endpoint required
-- **Three-level Visualization**:
-  - **Summary View**: Aggregate overview of all jobs (HTTP, TASK, etc.)
-  - **Type-Based View**: Jobs grouped by background job type
-  - **Modular View**: Granular tracking by job name/function
+- **Three-level Visualization**
 - **Fully Configurable**:
   - Data polling frequency
   - Update intervals
@@ -73,14 +70,6 @@ The application automatically maps the received data into three visualization se
 1. Clone the repository
 2. Configure your API endpoint
 3. Start monitoring your background jobs in real-time
-
-## 🎨 Customization
-
-The dashboard offers customization options:
-- Dark/Light theme
-- Polling interval configuration
-- Chart data retention settings
-- Maximum points per chart visualization
 
 ## 🧪 Testing Mode
 
