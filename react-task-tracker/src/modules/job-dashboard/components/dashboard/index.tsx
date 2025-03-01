@@ -204,14 +204,14 @@ export const DashboardModule = () => {
                         <ChartCard overview={allComponentsInfosRef.current.overview} info={allComponentsInfosRef.current.info} />
                     </Visible>
                 </>}
-            {typesComponentsInfosRef.current &&
+            {typesComponentsInfosRef.current.length > 0 &&
                 <>
                     <Divider my="xs" label="By Type" labelPosition="center" onClick={() => setShowGeneral((prev) => !prev)} style={{ cursor: "pointer" }} />
                     <Visible isVisible={showGeneral}>
                         <ChartsCarousel bundles={typesComponentsInfosRef.current} />
                     </Visible>
                 </>}
-            {namesComponentsInfosRef.current &&
+            {namesComponentsInfosRef.current.length > 0 &&
                 <>
                     <Divider my="xs" label="By Name" labelPosition="center" onClick={() => setShowModular((prev) => !prev)} style={{ cursor: "pointer" }} />
                     <Visible isVisible={showModular}>

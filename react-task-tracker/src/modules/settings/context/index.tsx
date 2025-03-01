@@ -22,7 +22,7 @@ export const useSettingsContext = create<SettingsState>((set) => ({
     updatesEnabled: true,
     secondsDelayBetweenRequests: null,
     shouldPurgeCharts: false,
-    maxAllowedDataPoints: 10,
+    maxAllowedDataPoints: null,
 
     setUseMock: (value) => set({ shouldUseMock: value }),
     setSecondsToPurgeData: (value) => set({ secondsToPurgeData: value }),

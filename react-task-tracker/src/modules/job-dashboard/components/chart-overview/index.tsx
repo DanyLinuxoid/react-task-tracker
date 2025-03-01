@@ -16,7 +16,7 @@ export const ChartOverview = (props: ChartOverviewProps) => {
                 ))}
                 <Container className={overviewStyles.badgeContainer}>
                     <Badge size={props.badgeSize} variant="outline">
-                        Biggest: {props.biggestActiveCount}
+                        Biggest Active: {props.biggestActiveCount}
                     </Badge>
                     <Badge size={props.badgeSize} variant="dot">
                         Active: {props.currentActiveCount}
