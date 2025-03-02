@@ -48,7 +48,7 @@ export interface JobInfoBase {
     isFinished: boolean;
 }
 ```
-
+NOTE: field ```startTimestamp``` is timestamp in seconds!
 ### Frontend Architecture
 
 The application automatically maps the received data into three visualization sections:
