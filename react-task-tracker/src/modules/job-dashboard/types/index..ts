@@ -2,6 +2,7 @@
     id: string;
     overview: ChartOverviewProps;
     info: ChartInfoProps;
+    lastUpdatedTimestamp: number;
 }
 
 export interface JobInfoBase {

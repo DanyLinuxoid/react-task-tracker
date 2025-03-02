@@ -1,4 +1,5 @@
 ﻿import { JobInfoBase } from "@/modules/job-dashboard";
+import { dateTimeNowSeconds } from "../../helpers/date-helper";
 
 export interface BackgroundJobInfo extends JobInfoBase {
     backgroundJobType: "BACKGROUND";
@@ -12,8 +13,8 @@ export function generateMockJobs(): JobInfoBase[] {
     const jobs: JobInfoBase[] = [];
     const random = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-    const startTimestamp = Date.now(); // Текущая метка времени
-    const jobCount = random(1, 5); // Генерируем от 1 до 5 задач
+    const startTimestamp = dateTimeNowSeconds(); 
+    const jobCount = random(1, 5); 
 
     for (let i = 0; i < jobCount; i++) {
         const newStartTimestamp = startTimestamp - random(0, 5) * 1000;
@@ -23,7 +24,7 @@ export function generateMockJobs(): JobInfoBase[] {
             name: jobName,
             startTimestamp: newStartTimestamp,
             backgroundJobType: "BACKGROUND",
-            isFinished: Math.random() < 0.5, // 50% что задача завершена
+            isFinished: Math.random() < 0.5, 
         };
 
         const extraJobs = random(0, 2);

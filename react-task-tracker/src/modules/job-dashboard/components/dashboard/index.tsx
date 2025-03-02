@@ -22,8 +22,7 @@ export const DashboardModule = () => {
     const { showSummary, setShowSummary } = useSummaryHideShowStore();
     const { showModular, setShowModular } = useModularHideShowStore();
     const lastTimeRef = useRef<Map<string, number>>(new Map());
-    const biggestAtiveCountRef = useRef<Map<string, number>>(new Map());
-    const lastTimestampUpdatedRef = useRef<Map<string, number>>(new Map());
+    const biggestActiveCountRef = useRef<Map<string, number>>(new Map());
     const allComponentsInfosRef = useRef<Bundle | null>(null);
     const typesComponentsInfosRef = useRef<Bundle[]>([]);
     const namesComponentsInfosRef = useRef<Bundle[]>([]);
@@ -46,9 +45,10 @@ export const DashboardModule = () => {
                 if (newData.length > 0) {
                     const lastTimestamp = newData[newData.length - 1].startTimestamp;
                     lastTimeRef.current.set(entry, lastTimestamp);
+                    infosLatest[entry] = data;
+                } else {
+                    infosLatest[entry] = [];
                 }
-
-                infosLatest[entry] = newData;
             });
 
             const overviews: ChartOverviewProps[] = Object.entries(jobsByKey).map(([entry, data]) => {
@@ -63,9 +63,9 @@ export const DashboardModule = () => {
                     }, [])
                     .sort();
                 const currentSumActive = typedData.filter((x) => !x.isFinished).length;
-                const currentBiggestActive = biggestAtiveCountRef.current.get(entry) || 0;
+                const currentBiggestActive = biggestActiveCountRef.current.get(entry) || 0;
                 if (currentSumActive > currentBiggestActive) {
-                    biggestAtiveCountRef.current.set(entry, currentSumActive);
+                    biggestActiveCountRef.current.set(entry, currentSumActive);
                 }
 
                 return {
@@ -83,7 +83,8 @@ export const DashboardModule = () => {
             return overviews.map((data, index) => ({
                 id: data.chartTitle + additionalId,
                 overview: data,
-                info: infos[index]
+                info: infos[index],
+                lastUpdatedTimestamp: lastTimeRef.current.get(data.chartTitle),
             })) as Bundle[];
         }; 
 
@@ -106,13 +107,13 @@ export const DashboardModule = () => {
 
             if (data && JSON.stringify(data) !== JSON.stringify(jobs)) {
                 setJobs(data);
-                let oldComponents = namesComponentsInfosRef.current;
+                let oldNameComponents = namesComponentsInfosRef.current;
 
                 // Removing old
                 if (secondsToPurgeData && secondsToPurgeData >= 1) {
                     const currentTimeInSecond = dateTimeNowSeconds();
-                    oldComponents = oldComponents.filter((x) => {
-                        const result = lastTimestampUpdatedRef.current.get(x.id);
+                    oldNameComponents = oldNameComponents.filter((x) => {
+                        const result = lastTimeRef.current.get(x.id);
                         return !result || currentTimeInSecond < result + secondsToPurgeData;
                     });
                 }
@@ -138,38 +139,34 @@ export const DashboardModule = () => {
                         badgeSize: 'md'
                     }
                 }, 2).sort((a, b) => a.id.localeCompare(b.id));
-                const updatedNameComponents = getComponentInfos({ // By name
+                let updatedNameComponents = getComponentInfos({ // By name
                     key: "name",
                     records: data,
                     settings: {
                         width: windowSizes.width * 0.30,
                         height: windowSizes.height * 0.23,
                         isLowerCaseTitle: true,
-                        badgeSize: 'md'
+                        badgeSize: 'xs'
                     }
                 }, 3).sort((a, b) => a.id.localeCompare(b.id));
 
-                // Update time
-                for (var i = 0; i < updatedNameComponents.length; i++) {
-                    const updateTime = dateTimeNowSeconds();
-                    lastTimestampUpdatedRef.current.set(updatedNameComponents[i].id, updateTime);
-                }
-
                 // Updating old
-                const allCurrentIds = new Set(oldComponents.map((x => x.id)));
+                const allCurrentIds = new Set(oldNameComponents.map((x => x.id)));
                 const newComponents = updatedNameComponents.filter(x => !allCurrentIds.has(x.id)).sort((a, b) => a.id.localeCompare(b.id));
                 for (var i = 0; i < updatedNameComponents.length; i++) {
                     if (!allCurrentIds.has(updatedNameComponents[i].id))
                         continue;
                     
-                    let existingToUpdate = oldComponents.find(x => x.id === updatedNameComponents[i].id);
+                    let existingToUpdate = oldNameComponents.find(x => x.id === updatedNameComponents[i].id);
                     if (!existingToUpdate)
                         continue;
 
                     existingToUpdate.info = updatedNameComponents[i].info;
                     existingToUpdate.overview = updatedNameComponents[i].overview;
                 }
-                namesComponentsInfosRef.current = [...oldComponents, ...newComponents];
+                let updatedNameData = [...oldNameComponents, ...newComponents];
+                updatedNameData = secondsToPurgeData && secondsToPurgeData >= 1 ? updatedNameData.filter((x) => x.lastUpdatedTimestamp >= dateTimeNowSeconds() - secondsToPurgeData) : updatedNameData
+                namesComponentsInfosRef.current = updatedNameData;
             }
         };
 
@@ -187,8 +184,7 @@ export const DashboardModule = () => {
             typesComponentsInfosRef.current = [];
             namesComponentsInfosRef.current = [];
             lastTimeRef.current = new Map();
-            biggestAtiveCountRef.current = new Map();
-            lastTimestampUpdatedRef.current = new Map();
+            biggestActiveCountRef.current = new Map();
             allComponentsInfosRef.current = null;
             typesComponentsInfosRef.current = [];
             namesComponentsInfosRef.current = [];
